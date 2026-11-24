@@ -30,37 +30,67 @@ La web funciona sin variables de entorno, archivo `.env` ni credenciales.
 
 ## Generación de la documentación
 
-Para generar la documentación, necesitas Python 3 con `pip`, Node.js y npm. Ejecuta los comandos desde la raíz del proyecto, donde están `mkdocs.yml` y `package.json`.
+Necesitas Python 3 con `pip`, Node.js y npm. Ejecuta los comandos desde
+la carpeta `practica-despliegue`, donde están `mkdocs.yml` y `package.json`.
+Si estás en la carpeta superior `Despliegue`, entra primero con
+`cd practica-despliegue`.
+
+Para descargar las dependencias, necesitas una conexión con acceso a
+los registros de paquetes de Python y npm.
 
 ### Guía de uso con MkDocs
 
-En Windows con PowerShell:
+#### Windows (PowerShell)
 
 ```powershell
 py -3.13 -m pip install mkdocs==1.6.1
 py -3.13 -m mkdocs build --strict
 ```
 
-En Ubuntu o Linux, usa un entorno virtual de Python:
+Abre `site/index.html` en el navegador.
+
+#### Ubuntu
+
+Si falta el soporte para crear entornos virtuales, instálalo primero:
+
+```bash
+sudo apt update
+sudo apt install python3-venv
+```
+
+Si el intento anterior dejó `.venv` incompleto, vuelve a crearlo
+ejecutando el primer comando del siguiente bloque. Actívalo y comprueba
+que `pip` muestra una ruta dentro de `.venv` antes de instalar MkDocs.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
+python -m pip --version
 python -m pip install mkdocs==1.6.1
 python -m mkdocs build --strict
 ```
 
-Si Ubuntu indica que falta el módulo `venv`, instala `python3-venv` y vuelve a crear el entorno.
+Cuando aparezca `Documentation built`, abre la guía desde la misma carpeta:
 
-Abre `site/index.html` en el navegador para consultar la guía de uso.
+```bash
+xdg-open site/index.html
+```
 
 ### Referencia de JavaScript con JSDoc
 
-En Windows o Linux:
+Desde la raíz de `practica-despliegue`, ejecuta:
 
 ```bash
 npm ci
 npx jsdoc src/lugares.js -d docs-api
 ```
 
-Abre `docs-api/index.html` en el navegador. En el menú **Global**, comprueba que aparece `contarLugares`, que recibe una lista de tipo `HTMLUListElement` y devuelve un `number`.
+Abre `docs-api/index.html` en el navegador. En Ubuntu, desde esa misma
+carpeta, puedes abrirlo con:
+
+```bash
+xdg-open docs-api/index.html
+```
+
+En el menú **Global**, comprueba que aparece `contarLugares`. La función
+recibe una lista de tipo `HTMLUListElement` y devuelve un `number`.
